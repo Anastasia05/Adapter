@@ -4,8 +4,6 @@ using namespace std;
 
 class Pitanie
 {
-	virtual ~Pitanie() = 0;
-
 public:
 	virtual void Zaryadit() = 0;
 };
@@ -19,9 +17,29 @@ public:
 	}
 };
 
-class 
+class Adapter : Pitanie
+{
+	Rozetka *rz;
+public:
+	void Zaryadit()
+	{
+		rz->Zaryadit();
+		cout << "Напряжение преобразовано к нормальному (6В)\n";
+	}
+	Adapter(Rozetka* r)
+	{
+		rz = r;
+	}
+};
 
 int main()
 {
-
+	setlocale(0, "");
+	Rozetka roz;
+	roz.Zaryadit();
+	cout << "Телефон сгорел синим пламенем\n";
+	Adapter adap(&roz);
+	adap.Zaryadit();
+	cout << "Зарядился нормально\n";
+	return 0;
 }
